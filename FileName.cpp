@@ -8,19 +8,27 @@ void sort_print(string x, vector<string> y) {
 }
 string compare(string try_string, string answer_string) {
 	string code;
-	bool a = true;
 
 	for (int i = 0; i < 5; i++) {
 		if (try_string[i] == answer_string[i]) {
 			code += "*";//자리+알파벳 정답
 		}
-		else if(a=true)
-			if(i==j){
-				break;
+		else {
+			bool a =  false;
+			for (int j = 0; j < 5; j++) {
 				if (try_string[i] == answer_string[j]) {
-					a = false;
+					a = true;
+					break;
+				}
+			}
+			if (a) {
+				code += "#";
+			}
+			else {
+				code += "@";
 			}
 		}
+			
 	}
 	return code;
 }
@@ -80,9 +88,15 @@ int main()
 				cout << "==> ";
 				cout << compare(string_try, answer) << endl;
 
-				if (string_try == answer)
-					cout << "Congratulation!!! Your guess is correct";
-
+				if (string_try == answer) {
+					break;
+				}
+			}
+			if (string_try == answer) {
+				cout << "Congratulation!!! Your guess is correct" << endl;
+			}
+			else {
+				cout << "Oops!!! You lost all your chances. The correct answer is \"" << answer << "\"." << endl;
 			}
 		}
 	} while (num_choice != 3);
