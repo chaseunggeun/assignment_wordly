@@ -1,17 +1,17 @@
 #include "std_lib_facilities.h"
 
-void sort_print(string x, vector<string> y) {
+void sort_print(string x, vector<string> y) {//벡터 정렬 + 출력
 	sort(y);
 	for (string x : y) {
 		cout << x << endl;
 	}
 }
-string compare(string try_string, string answer_string) {
+string compare(string try_string, string answer_string) {//문자열 비교
 	string code;
 
 	for (int i = 0; i < 5; i++) {
 		if (try_string[i] == answer_string[i]) {
-			code += "*";//자리+알파벳 정답
+			code += "*";//알파벳 + 자리 정답
 		}
 		else {
 			bool a =  false;
@@ -22,17 +22,23 @@ string compare(string try_string, string answer_string) {
 				}
 			}
 			if (a) {
-				code += "#";
+				code += "#";//알파벳 정답, 자리 오답
 			}
 			else {
-				code += "@";
+				code += "@";//알파벳 + 자리 오답
 			}
 		}
 			
 	}
 	return code;
 }
-
+int choice_option(int choice_num, int max_num) {//옵션선택창
+	while (choice_num < 1 || choice_num > max_num) {
+		cout << "Choose an option (1-" << max_num << ") :";
+		cin >> choice_num;
+	}
+	return choice_num;
+}
 
 
 int main()
@@ -54,20 +60,14 @@ int main()
 			<< "2. Game" << endl
 			<< "3. Exit" << endl << endl;
 			
-		while (num_choice < 1 || num_choice>3) {
-			cout << "Choose an option (1-3) :";
-			cin >> num_choice;
-		}
+		num_choice = choice_option(num_choice, 3);
 
 		if (num_choice == 1) {//사전
 			while (1) {
 				cout << endl << "[ DICTIONARY ]" << endl << "1. Print" << endl << "2. Return" << endl << endl;;
 				int num_choice_dictionary = 0;
 
-				while (num_choice_dictionary < 1 || num_choice_dictionary>2) {
-					cout << "Choose an option (1-2) :";
-					cin >> num_choice_dictionary;
-				}
+				num_choice_dictionary = choice_option(num_choice_dictionary, 2);
 
 				if (num_choice_dictionary == 2) {
 					break;
@@ -80,7 +80,7 @@ int main()
 		else if (num_choice == 2) {//게임실행
 			string string_try;
 			int ran_num = randint(size(vec_word));
-			string answer = vec_word[ran_num];//답 정해짐
+			string answer = vec_word[ran_num];
 			
 			for (int i = 0; i < 6; i++) {
 				cout << "[" << i + 1 << "/6] Guess the word :";
